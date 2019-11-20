@@ -13,16 +13,16 @@ require('dotenv').config();
 
 const map = require('./routes/map');
 
-mongoose.connect(process.env.MONGODB_URI, {
-  keepAlive: true,
-  useNewUrlParser: true,
-  reconnectTries: Number.MAX_VALUE,
-  useUnifiedTopology: true 
-}).then(() => {
-  console.log(`Connected to database`);
-}).catch((error) => {
-  console.error(error);
-})
+// mongoose.connect(process.env.MONGODB_URI, {
+//   keepAlive: true,
+//   useNewUrlParser: true,
+//   reconnectTries: Number.MAX_VALUE,
+//   useUnifiedTopology: true 
+// }).then(() => {
+//   console.log(`Connected to database`);
+// }).catch((error) => {
+//   console.error(error);
+// })
 
 
 const app = express();
