@@ -36,7 +36,7 @@
         var spots = <%- spots %>
         
        console.log(spots)
-        spots.forEach(function (marker) {
+        spots.features.forEach(function (marker) {
 
             // create a HTML element for each feature
             var el = document.createElement('div');

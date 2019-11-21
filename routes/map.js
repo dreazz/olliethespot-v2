@@ -19,6 +19,7 @@ router.get('/addSpot',(req,res,next)=>{
 })
 router.post('/addSpot',upload.none(),(req,res,next)=>{
     //coordinates:[longitud,latitud]
+    let coordinates = req.body.location.split(",")
    let spotObject = {
         "type": "Feature",
         "properties": {
@@ -28,19 +29,19 @@ router.post('/addSpot',upload.none(),(req,res,next)=>{
         "geometry": {
             "type": "Point",
             "coordinates": [
-                2.166849374771118,
-                41.38321659916387
+              parseFloat(coordinates[0]),parseFloat(coordinates[1])
             ]
         }
     }
-    console.log(req.file)
-    // spots.push(req.body)
    
-    // fs.writeFile( __dirname+"/spots.json",JSON.stringify(spots), (err) => {
-    //     if (err) throw err;
+    spots.features.push(spotObject)
+   
+   
+    fs.writeFile( __dirname+"/spots.json",JSON.stringify(spots), (err) => {
+        if (err) throw err;
         
-    // });
-    // res.render('index',{spots:JSON.stringify(spots)})
+    });
+    res.redirect('/')
     
 })
 
