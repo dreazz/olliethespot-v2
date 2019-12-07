@@ -20,7 +20,7 @@ const User = require('../models/user');
 router.get('/', (req, res, next) => {
   Spot.find()
     .then((spots) => {
-      res.render('spots/show', { spots, token: process.env.MAPBOX, currentLocation: 1 });
+     res.send({result:spots})
     })
     .catch((err) => {
       console.log(err);
