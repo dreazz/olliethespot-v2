@@ -20,6 +20,7 @@ const User = require('../models/user');
 router.get('/', (req, res, next) => {
   Spot.find()
     .then((spots) => {
+      console.log(spots)
      res.send({result:spots})
     })
     .catch((err) => {
