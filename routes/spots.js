@@ -28,39 +28,31 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.get('/new', (req, res, next) => {
-  res.render('spots/new');
-  console.log(req.session.currentUser._id);
-});
 
-router.post('/new', upload.single('image'), (req, res, next) => {
+
+router.post('/new',(req, res, next) => {
+  console.log("IM HEREEEE",req.body)
   const {
-    name, location, city, description,
+    spotName, spotLocation, spotDescription,
   } = req.body;
-  console.log('NAME OF THE CITYYYYYYYY IS', city);
-  const owner = req.session.currentUser._id;
-  const image = req.file;
-  const imagePathRaw = image.path;
-  cloudinary.v2.uploader.upload(image.path, (error, result) => {
+ 
     Spot.create({
-      owner,
-      name,
+      name:spotName,
       location: {
         type: 'Point',
-        coordinates: location.split(','),
+        coordinates: spotLocation.split(','),
       },
-      city,
-      description,
-      image: result.secure_url,
+      description:spotDescription
     })
       .then((spot) => {
+        console.log(spot,"SPOOOOTO")
         spot.save();
-        res.redirect('/spots');
+        res.status(spot)
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err,"ERROOOOOR")
+        res.error(err)
       });
-  });
 });
 
 router.get('/:id', (req, res, next) => {
