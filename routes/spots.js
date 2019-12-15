@@ -35,19 +35,19 @@ router.post('/new',(req, res, next) => {
   const {
     spotName, spotLocation, spotDescription,
   } = req.body;
- 
+ console.log(spotName,spotLocation,spotDescription)
     Spot.create({
       name:spotName,
+      description:spotDescription,
       location: {
         type: 'Point',
         coordinates: spotLocation.split(','),
       },
-      description:spotDescription
     })
       .then((spot) => {
         console.log(spot,"SPOOOOTO")
         spot.save();
-        res.status(spot)
+        res.json({success:"Spot was saved"})
       })
       .catch((err) => {
         console.log(err,"ERROOOOOR")
