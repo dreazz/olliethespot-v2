@@ -20,39 +20,47 @@ const User = require('../models/user');
 router.get('/', (req, res, next) => {
   Spot.find()
     .then((spots) => {
-      console.log(spots)
-     res.send({result:spots})
+      res.render('spots/show', { spots, token: process.env.MAPBOX, currentLocation: 1 });
     })
     .catch((err) => {
       console.log(err);
     });
 });
 
+router.get('/new', (req, res, next) => {
+  res.render('spots/new');
+  console.log(req.session.currentUser._id);
+});
 
-
-router.post('/new',(req, res, next) => {
-  console.log("IM HEREEEE",req.body)
+router.post('/new', upload.single('image'), (req, res, next) => {
   const {
-    spotName, spotLocation, spotDescription,
+    name, location, city, description,
   } = req.body;
- console.log(spotName,spotLocation,spotDescription)
+  console.log('NAME OF THE CITYYYYYYYY IS', req.body);
+  const owner = req.session.currentUser._id;
+  console.log("USER: ", req.session)
+  const image = req.file;
+  const imagePathRaw = image.path;
+  cloudinary.v2.uploader.upload(image.path, (error, result) => {
     Spot.create({
-      name:spotName,
-      description:spotDescription,
+      owner,
+      name,
       location: {
         type: 'Point',
-        coordinates: spotLocation.split(','),
+        coordinates: location.split(','),
       },
+      city,
+      description,
+      image: result.secure_url,
     })
       .then((spot) => {
-        console.log(spot,"SPOOOOTO")
         spot.save();
-        res.json({success:"Spot was saved"})
+        res.redirect('/spots');
       })
       .catch((err) => {
-        console.log(err,"ERROOOOOR")
-        res.error(err)
+        console.log(err);
       });
+  });
 });
 
 router.get('/:id', (req, res, next) => {
@@ -61,6 +69,7 @@ router.get('/:id', (req, res, next) => {
     .then((spot) => {
       User.findById(spot.owner)
         .then((user) => {
+          console.log("THIS IS THE USER: ", spot, "USER: ", user)
           res.render('spots/details', { spot, user, token: process.env.MAPBOX });
         });
     })
