@@ -13,7 +13,7 @@ const spotSchema = new Schema({
     type: {
       type: String
     },
-    coordinates: [Number]
+    coordinates: []
   }
 });
 
