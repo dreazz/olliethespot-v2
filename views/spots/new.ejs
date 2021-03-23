@@ -10,10 +10,10 @@
     <textarea type="text" name="name" placeholder="Enter the name of the spot" class="form-control mt-3" required></textarea>
   </div>
   <div class="form-group">
-    <input disabled="disabled" name="location" placeholder="Choose the location" id="location" class="form-control" value="" required></input>
+    <input type="hidden" name="location" placeholder="Choose the location" id="location" class="form-control" value="" required></input>
   </div>
   <div class="form-group">
-    <input  disabled="disabled" name="city" placeholder="CITY" id="city" class="form-control" value="" required></input>
+    <input type="hidden" name="city" placeholder="CITY" id="city" class="form-control" value="" required></input>
   </div>
   <div class="form-group">  
     <label for="">Description</label>
@@ -50,7 +50,11 @@ let userLocation = []
 function callback(data) {
   console.log("USER: ", data)
   city.value = data.city;
-  locationInput.value = userLocation && userLocation.length ? userLocation : [data.longitude, data.latitude]
+  if(userLocation && userLocation.length){
+    locationInput.value =userLocation
+  }else{
+    locationInput.value =[data.longitude, data.latitude]
+  }
   console.log(city.value, " ", locationInput.value)
 
 }
