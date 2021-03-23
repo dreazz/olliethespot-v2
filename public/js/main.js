@@ -27,7 +27,7 @@ function turnmap() {
   spotsCard.classList.toggle("access-card-hover");
   spotsCard.classList.toggle("align-center");
   spotsContainer.classList.toggle("hide");
-  spotsMap.classList.toggle("position-z");
+  spotsMap.classList.toggle("hide");
 }
 function main() {
   function getLocation() {
