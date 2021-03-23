@@ -27,7 +27,7 @@ function turnmap() {
   spotsCard.classList.toggle("access-card-hover");
   spotsCard.classList.toggle("align-center");
   spotsContainer.classList.toggle("hide");
-  spotsMap.classList.toggle("hide");
+  spotsMap.classList.toggle("position-z");
 }
 function main() {
   function getLocation() {
@@ -39,10 +39,7 @@ function main() {
   }
 
   function showPosition(position) {
-    coordinatesTest.value = [
-      position.coords.longitude,
-      position.coords.latitude,
-    ];
+  
     console.log(
       `Latitude: ${position.coords.latitude} Longitude: ${position.coords.longitude}`
     );

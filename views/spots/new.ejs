@@ -28,8 +28,9 @@
 
 <script>
 let city = document.getElementById('city');
-let location = document.getElementById("location")
-function getLocation() {
+let locationInput = document.getElementById("location")
+let userLocation = []
+ function getLocation() {
     console.log("GEOLOCATION FUNCTION CALLED");
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
@@ -38,21 +39,21 @@ function getLocation() {
   }
 
   function showPosition(position) {
-    coordinatesTest.value = [
-      position.coords.longitude,
-      position.coords.latitude,
-    ];
+    
     console.log(
       `Latitude: ${position.coords.latitude} Longitude: ${position.coords.longitude}`
     );
-    location.value = [position.coords.longitude, position.coords.latitude];
+    userLocation = [position.coords.longitude, position.coords.latitude];
+    return [position.coords.longitude, position.coords.latitude];
   }
-
+  getLocation();
 function callback(data) {
+  console.log("USER: ", data)
   city.value = data.city;
-  console.log(data);
-}
+  locationInput.value = userLocation
+  console.log(city.value, " ", locationInput.value)
 
+}
 var script = document.createElement('script');
 script.type = 'text/javascript';
 script.src = 'https://geoip-db.com/jsonp';

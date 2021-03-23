@@ -13,7 +13,7 @@ router.post('/', (req, res, next) => {
   }
   else {
     req.session.location = req.body.location.split(',');
-    console.log("internet working mother focker")
+   
 
   }
 

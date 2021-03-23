@@ -104,18 +104,19 @@ hr{
 }
 
 /****MAP BOX*****/
-/* #map{
+#map{
   display:absolute;
   bottom:0;
   height: 10rem;
   margin: 3rem 1rem;
-} */
+}
 
 .map-align{
   text-align: justify;
 }
-
-
+.postion-z{
+  z-index: 3
+}
 
 /*****SPIN THE MAP************/
 .spots-card{

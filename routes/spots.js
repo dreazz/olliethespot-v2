@@ -50,7 +50,7 @@ router.post("/new", upload.single("image"), (req, res, next) => {
       name,
       location: {
         type: "Point",
-        coordinates: locationArray,
+        coordinates: [parseFloat(locationArray[0]),parseFloat(locationArray[1])],
       },
       city,
       description,
