@@ -50,7 +50,7 @@ let userLocation = []
 function callback(data) {
   console.log("USER: ", data)
   city.value = data.city;
-  locationInput.value = userLocation
+  locationInput.value = userLocation && userLocation.length ? userLocation : [data.longitude, data.latitude]
   console.log(city.value, " ", locationInput.value)
 
 }
